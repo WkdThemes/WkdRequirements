@@ -57,6 +57,17 @@ WKD Requirements allows you to position your scripts within the stack. There are
 
 Scripts are placed in the middle by default if no position is provide.
 
+##Positioning within Stylesheet stack##
+***
+
+WKD Requirements allows you to position your stylesheets within the stack. There are three (3) possible positions - `top`, `middle` and `bottom`. Simply pass the `css` method a script and position and you are golden!
+
+```
+	<% require css(themes/mytheme/css/mystyles.css, top) %>
+```
+
+Stylesheets are placed in the middle by default if no position is provide.
+
 ##Combine requirements in your templates##
 ***
 
