@@ -4,7 +4,7 @@
 		 * Paths to all required .js files relative to the webroot.
 		 * These .js files will be positioned top of stack.
 		 *
-		 * @var array $javascript
+		 * @var array $javascriptTop
 		 */
 		protected $javascriptTop = array();
 
@@ -12,10 +12,25 @@
 		 * Paths to all required .js files relative to the webroot.
 		 * These .js files will be positioned bottom of stack.
 		 *
-		 * @var array $javascript
+		 * @var array $javascriptBottom
 		 */
 		protected $javascriptBottom = array();
 
+		/**
+		 * Paths to all required .css files relative to the webroot.
+		 * These .css files will be positioned top of stack.
+		 *
+		 * @var array $cssTop
+		 */
+		protected $cssTop = array();
+
+		/**
+		 * Paths to all required .css files relative to the webroot.
+		 * These .css files will be positioned bottom of stack.
+		 *
+		 * @var array $cssBottom
+		 */
+		protected $cssBottom = array();
 
 		/**
 		 * Paths to all required combined files relative to the webroot.
@@ -38,7 +53,7 @@
 		 * Filenames should be relative to the base, eg, 'framework/javascript/loader.js'
 		 *
 		 * @param  string $file file path
-		 * @param  string $position group position within head when <!--JS--> is present in page.ss
+		 * @param  string $position group position within stack
 		 *
 		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
@@ -57,7 +72,7 @@
 		 * Filenames should be relative to the base, eg, 'framework/javascript/loader.js'
 		 *
 		 * @param  string $file     file path
-		 * @param  string $group    group name including extension
+		 * @param  string $group    group file name without extension
 		 * @param  string $position position within stack
 		 *
 		 * @author Kirk Bentley <kirk@wkdthemes.com>
@@ -79,17 +94,59 @@
 		}
 
 		/**
-		 * Combine css files from template
-		 * Filenames should be relative to the base, eg, 'framework/javascript/loader.js'
+		 * Register the given stylesheet file as required.
+		 *
+		 * @param $file String Filenames should be relative to the base, eg, 'framework/javascript/tree/tree.css'
+		 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
+		 * @param string $position group position within stack
+		 * @see http://www.w3.org/TR/REC-CSS2/media.html
+		 */
+		function css($file, $position = 'middle', $media = null) {
+			if($position == 'top') {
+				$this->cssTop[$file] = array(
+						'media' => $media
+					);
+			} else if($position == 'bottom') {
+				$this->cssBottom[$file] = array(
+						'media' => $media
+					);
+			} else {
+				$this->css[$file] = array(
+						'media' => $media
+					);
+			}
+		}
+
+		/**
+		 * Combine stylesheet files from template
+		 * Filenames should be relative to the base, eg, 'framework/css/base.css'
 		 *
 		 * @param  string $file     file path
-		 * @param  string $group    group name including extension
+		 * @param  string $group    group file name without extension
+		 * @param  string $position position within stack
 		 *
 		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
-		function css_combine($file, $group) {
-			$this->css($file);
-			$this->combine_files[$group . '.css'][] = $file;
+		function css_combine($file, $group, $position = 'middle', $media = null) {
+			$this->css($file, $position, $media);
+
+			switch($position){
+				case 'top':
+					$this->combine_files_top[$group . '.css'][] = array(
+							'media' => $media
+						);
+					break;
+				case 'middle':
+					$this->combine_files[$group . '.css'][] = array(
+							'media' => $media
+						);
+					break;
+				case 'bottom':
+					$this->combine_files_top[$group . '.css'][] = array(
+							'media' => $media
+						);
+					break;
+			}
 		}
 
 		/**
@@ -112,6 +169,11 @@
 
 				// Merge javascript positioned arrays
 				$this->javascript = array_merge($this->javascriptTop, $this->javascript, $this->javascriptBottom);
+
+				// Merge css positioned arrays
+				$this->css = array_merge($this->cssTop, $this->css, $this->cssBottom);
+
+				FB::warn($this->css);
 
 				// Merge positioned combined arrays
 				$this->combine_files = array_merge($this->combine_files_top, $this->combine_files, $this->combine_files_bottom);

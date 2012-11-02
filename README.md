@@ -55,7 +55,7 @@ WKD Requirements allows you to position your scripts within the stack. There are
 	<% require javascript(themes/mytheme/js/myscript.js, top) %>
 ```
 
-Scripts a placed in the middle by default if no position is provide.
+Scripts are placed in the middle by default if no position is provide.
 
 ##Combine requirements in your templates##
 ***
@@ -71,4 +71,4 @@ Providing a position allows you to control where you script is positioned within
 	<% require javascript_combine(themes/mythme/js/file-4.js, myscripts, middle) %>
 ```
 
-Scripts a placed in the middle by default if no position is provide.
+Scripts are placed in the middle by default if no position is provide.

@@ -11,11 +11,10 @@
 	class Requirements extends Requirements_Frontend {
 		/**
 		 * Register the given javascript file as required.
-		 *
 		 * See {@link Requirements_Backend::javascript()} for more info
 		 *
 		 * @param  string $file     file path
-		 * @param  string $position group position within head when <!--JS--> is present in page.ss
+		 * @param  string $position group position within stack
 		 *
 		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
@@ -29,7 +28,7 @@
 		 *
 		 * @param  string $file     file path
 		 * @param  string $group    group name without extension
-		 * @param  string $position group position within head when <!--JS--> is present in page.ss
+		 * @param  string $position group position within stack
 		 *
 		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
@@ -38,16 +37,31 @@
 		}
 
 		/**
+		 * Register the given stylesheet file as required.
+		 * See {@link Requirements_Backend::css()}
+		 *
+		 * @param $file String Filenames should be relative to the base, eg, 'framework/javascript/tree/tree.css'
+		 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
+		 * @param string $position group position within stack
+		 * @see http://www.w3.org/TR/REC-CSS2/media.html
+		 *
+		 * @author Kirk Bentley <kirk@wkdthemes.com>
+		 */
+		static function css($file, $position = 'middle', $media = null) {
+			self::backend()->css($file, $position, $media);
+		}
+
+		/**
 		 * Combine css files from template
 		 * Filenames should be relative to the base, eg, 'framework/javascript/loader.js'
 		 *
 		 * @param  string $file     file path
 		 * @param  string $group    group name without extension
-		 * @param  string $position group position within head when <!--CSS--> is present in page.ss
+		 * @param  string $position group position within stack
 		 *
 		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
-		static function css_combine($file, $group) {
-			self::backend()->css_combine($file, $group);
+		static function css_combine($file, $group, $position = 'middle', $media = null) {
+			self::backend()->css_combine($file, $group, $position, $media);
 		}
 	}
