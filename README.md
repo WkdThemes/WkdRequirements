@@ -49,7 +49,7 @@ To achieve a more precise stack placement you can insert `<!--JS-->` and `<!--CS
 ##Positioning within JavaScript stack##
 ***
 
-WKD Requirements allows you to position your scripts within the stack. There are three (3) possible positions - `top`, `middle` and `bottom`. Simply pass the requirements javascript method a script an position and you are golden!
+WKD Requirements allows you to position your scripts within the stack. There are three (3) possible positions - `top`, `middle` and `bottom`. Simply pass the `javascript` method a script an position and you are golden!
 
 ```
 	<% require javascript(themes/mytheme/js/myscript.js, top) %>
