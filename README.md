@@ -68,18 +68,34 @@ WKD Requirements allows you to position your stylesheets within the stack. There
 
 Stylesheets are placed in the middle by default if no position is provide.
 
-##Combine requirements in your templates##
+##Combine JavaScript requirements in your templates##
 ***
 
-Combining your requirements from the template is a snap. Provide the `javascript_combine` method with a script, combined file name (no .js extension) and a position.
+Combining your JavaScript requirements from the template is a snap. Provide the `javascript_combine` method with a script, combined file name (no .js extension) and a position.
 
 Providing a position allows you to control where you script is positioned within the combined output. There are three (3) possible positions - `top`, `middle` and `bottom`.
 
+The following will produce a sing script called **myscripts.js**.
 ```
-	<% require javascript_combine(themes/mythme/js/file-1.js, myscripts, top) %>
-	<% require javascript_combine(themes/mythme/js/file-2.js, myscripts, bottom) %>
-	<% require javascript_combine(themes/mythme/js/file-3.js, myscripts, top) %>
-	<% require javascript_combine(themes/mythme/js/file-4.js, myscripts, middle) %>
+	<% require javascript_combine(themes/mythme/js/file-1.js, myscripts) %>
+	<% require javascript_combine(themes/mythme/js/file-2.js, myscripts) %>
+	<% require javascript_combine(themes/mythme/js/file-3.js, myscripts) %>
 ```
 
 Scripts are placed in the middle by default if no position is provide.
+
+##Combine Stylesheet requirements in your templates##
+***
+
+Combining your Stylesheets requirements from the template is just as easy. Provide the `css_combine` method with a stylesheet, combined file name (no .css extension) and a position.
+
+Providing a position allows you to control where you stylesheet is positioned within the combined output. There are three (3) possible positions - `top`, `middle` and `bottom`.
+
+The following will produce a sing stylesheet called **mystylesheets.css**.
+```
+	<% require css_combine(themes/mythme/css/file-1.css, mystylesheets) %>
+	<% require css_combine(themes/mythme/css/file-2.css, mystylesheets) %>
+	<% require css_combine(themes/mythme/css/file-3.css, mystylesheets) %>
+```
+
+Stylesheets are placed in the middle by default if no position is provide.
