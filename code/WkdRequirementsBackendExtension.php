@@ -38,7 +38,7 @@
 		 *
 		 * @var array $javascript
 		 */
-		public $combine_files_top = array();
+		protected $combine_files_top = array();
 
 		/**
 		 * Paths to all required combined files relative to the webroot.
@@ -46,7 +46,7 @@
 		 *
 		 * @var array $javascript
 		 */
-		public $combine_files_bottom = array();
+		protected $combine_files_bottom = array();
 
 		/**
 		 * Register the given javascript file as required.
@@ -54,8 +54,6 @@
 		 *
 		 * @param  string $file file path
 		 * @param  string $position group position within stack
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		public function javascript($file, $position = 'middle') {
 			if($position == 'top') {
@@ -74,8 +72,6 @@
 		 * @param  string $file     file path
 		 * @param  string $group    group file name without extension
 		 * @param  string $position position within stack
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		function javascript_combine($file, $group, $position = 'middle') {
 			$this->javascript($file, $position);
@@ -124,8 +120,6 @@
 		 * @param  string $file     file path
 		 * @param  string $group    group file name without extension
 		 * @param  string $position position within stack
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		function css_combine($file, $group, $position = 'middle', $media = null) {
 			$this->css($file, $position, $media);
@@ -146,6 +140,25 @@
 							'media' => $media
 						);
 					break;
+			}
+		}
+
+		/**
+		 * @see Requirements::themedCSS()
+		 */
+		public function themedCSS($name, $position = 'middle', $module = null, $media = null) {
+			$path = SSViewer::get_theme_folder();
+			$abspath = BASE_PATH . DIRECTORY_SEPARATOR . $path;
+			$css = "/css/$name.css";
+
+			if ($module && file_exists($abspath.'_'.$module.$css)) {
+				$this->css($path.'_'.$module.$css, $position, $media);
+			}
+			else if (file_exists($abspath.$css)) {
+				$this->css($path.$css, $position, $media);
+			}
+			else if ($module) {
+				$this->css($module.$css, $position);
 			}
 		}
 

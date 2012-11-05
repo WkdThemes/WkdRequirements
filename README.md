@@ -7,6 +7,8 @@ WKD Requirements allows you to position javascript requirements with more precis
 ***
 ###NOTE###
 
+**Based on Sapphire 3.0**
+
 **To use WKD Requirements you must make one tiny little change in the original Requirements.php source**
 
 **Change the class name from** `Requirements` **to** `Requirements_Frontend`
@@ -60,10 +62,12 @@ Scripts are placed in the middle by default if no position is provide.
 ##Positioning within Stylesheet stack##
 ***
 
-WKD Requirements allows you to position your stylesheets within the stack. There are three (3) possible positions - `top`, `middle` and `bottom`. Simply pass the `css` method a stylesheet and position.
+WKD Requirements allows you to position your stylesheets within the stack. There are three (3) possible positions - `top`, `middle` and `bottom`. Simply pass the `css` or `themedCSS` method a stylesheet and position.
 
 ```
 	<% require css(themes/mytheme/css/mystyles.css, top) %>
+	<% require themedCSS(mythemestyles, top) %>
+
 ```
 
 Stylesheets are placed in the middle by default if no position is provide.

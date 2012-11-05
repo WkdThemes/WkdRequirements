@@ -15,8 +15,6 @@
 		 *
 		 * @param  string $file     file path
 		 * @param  string $position group position within stack
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		static function javascript($file, $position = 'middle') {
 			self::backend()->javascript($file, $position);
@@ -29,8 +27,6 @@
 		 * @param  string $file     file path
 		 * @param  string $group    group name without extension
 		 * @param  string $position group position within stack
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		static function javascript_combine($file, $group, $position = 'middle') {
 			self::backend()->javascript_combine($file, $group, $position);
@@ -44,8 +40,6 @@
 		 * @param $media String Comma-separated list of media-types (e.g. "screen,projector")
 		 * @param string $position group position within stack
 		 * @see http://www.w3.org/TR/REC-CSS2/media.html
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		static function css($file, $position = 'middle', $media = null) {
 			self::backend()->css($file, $position, $media);
@@ -58,10 +52,28 @@
 		 * @param  string $file     file path
 		 * @param  string $group    group name without extension
 		 * @param  string $position group position within stack
-		 *
-		 * @author Kirk Bentley <kirk@wkdthemes.com>
 		 */
 		static function css_combine($file, $group, $position = 'middle', $media = null) {
 			self::backend()->css_combine($file, $group, $position, $media);
+		}
+
+		/**
+		 * Registers the given themeable stylesheet as required.
+		 *
+		 * A CSS file in the current theme path name "themename/css/$name.css" is
+		 * first searched for, and if that doesn't exist and the module parameter is
+		 * set then a CSS file with that name in the module is used.
+		 *
+		 * NOTE: This API is experimental and may change in the future.
+		 *
+		 * @param string $name The name of the file - e.g. "/css/File.css" would have
+		 *        the name "File".
+		 * @param string $position group position within stack
+		 * @param string $module The module to fall back to if the css file does not
+		 *        exist in the current theme.
+		 * @param string $media The CSS media attribute.
+		 */
+		public static function themedCSS($name, $position = 'middle', $module = null, $media = null) {
+			return self::backend()->themedCSS($name, $position, $module, $media);
 		}
 	}
