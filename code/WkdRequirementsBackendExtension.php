@@ -176,17 +176,15 @@
 		function includeInHTML($templateFile, $content) {
 			if(isset($_GET['debug_profile'])) Profiler::mark("Requirements::includeInHTML");
 
+			// Merge javascript positioned arrays
+			$this->javascript = array_merge($this->javascriptTop, $this->javascript, $this->javascriptBottom);
+
+			// Merge css positioned arrays
+			$this->css = array_merge($this->cssTop, $this->css, $this->cssBottom);
+
 			if((strpos($content, '</head>') !== false || strpos($content, '</head ') !== false) && ($this->css || $this->javascript || $this->customCSS || $this->customScript || $this->customHeadTags)) {
 				$requirements = '';
 				$jsRequirements = '';
-
-				// Merge javascript positioned arrays
-				$this->javascript = array_merge($this->javascriptTop, $this->javascript, $this->javascriptBottom);
-
-				// Merge css positioned arrays
-				$this->css = array_merge($this->cssTop, $this->css, $this->cssBottom);
-
-				FB::warn($this->css);
 
 				// Merge positioned combined arrays
 				$this->combine_files = array_merge($this->combine_files_top, $this->combine_files, $this->combine_files_bottom);
